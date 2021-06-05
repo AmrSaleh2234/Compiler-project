@@ -1,5 +1,0 @@
-/^This is main function
-Omw$decrease(){
-Omw$3num=5.
-Reiterate (counter<num){
-reg3=reg3-1.} }

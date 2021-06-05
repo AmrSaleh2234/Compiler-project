@@ -37,13 +37,9 @@ public void compile(String string) throws IOException{
         int LineNo = 1;
         int LNL = 0 ;
         String rt = null;
-      //  String[] ids = new String[1000];
-      
-        
         int in = 0;
         int state = 1 ;
         String id = "";
-        String digit ="";
         try{
         for(int i = 0; i < string.length(); i++){
            char c = string.charAt(i);
@@ -193,11 +189,8 @@ public void compile(String string) throws IOException{
                         if((i+1)<string.length()&& (string.charAt(i+1)=='$'|| string.charAt(i+1)=='.')||string.charAt(i+1)=='('){
                             state = 1 ;
                             id += string.charAt(i);
-                           // System.out.println(id);
-                            //System.out.println(i);
-                                   
-                                ids.add(id);
-                                index.add(i+1);
+                            ids.add(id);
+                            index.add(i+1);
                             set("LineNo",String.valueOf(LineNo));
                             set("Lexeme",id);
                             set("ReturnToken", "Error");
@@ -205,7 +198,6 @@ public void compile(String string) throws IOException{
                             set("LNL", String.valueOf(LNL));
                             set("matchability", "UnMatched");
                             id = "";
-                           
                             break;
                         }
                         if((i+1)<string.length()){
@@ -214,11 +206,8 @@ public void compile(String string) throws IOException{
                 }break;
                 case(2):{if(c=='h'){id += "h";state = 3 ;}else{state =0 ;}}break;
                 case(3):{if(c=='j'){id += "j";state = 4 ;}else{state =0 ;}}break;
-                case(4):{if(c=='i' && string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ){
-                    id += c;
-                    rt="Character";
-                    state=-1;
-                    i--;
+                case(4):{if(c=='i' &&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ' ) ){
+                    id += c;rt="Character";state=-1;i--;
                     
                 }else{state =0 ;}}break;
                 case(6):{if(c=='O'){id += "O";state = 7 ;}else{state =0 ;}}break;
@@ -263,7 +252,7 @@ public void compile(String string) throws IOException{
                
                 }else{state =0 ;}}break;
                 case(42):{if(c=='l'){id += "l";state = 43 ;}else{state =0 ;}}break;
-                case(43):{if(c=='i'&& string.charAt(i+1)=='$'||string.charAt(i+1)=='.'){id += c;state = -1 ;rt="Struct";i--;
+                case(43):{if(c=='i'&&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ' )){id += c;state = -1 ;rt="Struct";i--;
                
                 }else{state =0 ;}}break;
                 case(45):{if(c=='e'){id += "e";state = 46 ;}else{state =0 ;}}break;
@@ -306,14 +295,14 @@ public void compile(String string) throws IOException{
                 case(74):{if(c=='e'){id += "e";state = 75 ;}else{state =0 ;}}break;
                 case(75):{if(c=='s'){id += "s";state = 76 ;}else{state =0 ;}}break;
                 case(76):{if(c=='t'){id += "t";state = 77 ;}else{state =0 ;}}break;
-                case(77):{if(c=='l'&& string.charAt(i+1)=='$'||string.charAt(i+1)=='.'){id += c;state = -1 ;rt="String";i--;
+                case(77):{if(c=='l'&&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ' )){id += c;state = -1 ;rt="String";i--;
                 
                 }else{state =0 ;}}break;
                 case(79):{if(c=='M'){id += "M";state = 80 ;}else{state =0 ;}}break;
                 case(80):{if(c=='w'){id += "w";state = 81 ;}else{state =0 ;}}break;
-                case(81):{if(c=='f'&& string.charAt(i+1)=='$'||string.charAt(i+1)=='.'){id += c;state = -1 ;rt="SFloat";i--;
+                case(81):{if(c=='f'&&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ' )){id += c;state = -1 ;rt="SFloat";i--;
                
-                }else if(c=='w'&& string.charAt(i+1)=='$'||string.charAt(i+1)=='.'){id += c;state = -1 ;rt="SInteger";i--;
+                }else if(c=='w'&&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ' )){id += c;state = -1 ;rt="SInteger";i--;
                 
                 }else{state =0 ;}}break;
                 case(84):{if(c=='n'){id += "n";state = 85 ;}else if(c=='M'){id += "M";state = 124;}else{state =0 ;}}break;
@@ -324,10 +313,7 @@ public void compile(String string) throws IOException{
                 case(89):{if(c=='e'){id += c;state = -1 ;rt="Inclusion";i--;
                
                 }else{state =0 ;}}break;
-                case(92):{if(c=='@'){
-                    id += "@";
-                    state = 1 ;
-               
+                case(92):{if(c=='@'){id += "@";state = 1 ;
                 set("LineNo",String.valueOf(LineNo));
                 set("Lexeme", id);
                 set("ReturnToken", "Comment");
@@ -388,7 +374,7 @@ public void compile(String string) throws IOException{
                 }else{state=0;}
                 }break;
                 case(124):{if(c=='w'){id += "w";state = 125 ;}else{state =0 ;}}break;
-                case(125):{if(c=='f'&& string.charAt(i+1)=='$'||string.charAt(i+1)=='.'){
+                case(125):{if(c=='f'&&( string.charAt(i+1)=='$'||string.charAt(i+1)=='.' ||string.charAt(i+1)==' ')){
                 id += c;state = -1 ;rt="Float";i--;
                 }else{state =0 ;}}break;         
     
@@ -396,7 +382,7 @@ public void compile(String string) throws IOException{
         }}
 }catch(Exception e ){
 
-            //JOptionPane.showMessageDialog(null,"", "error", JOptionPane.ERROR_MESSAGE);
+            
 }
 }
 

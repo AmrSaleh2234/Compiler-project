@@ -193,6 +193,7 @@ class AutoSuggestor {
         String text = textComp.getText();
         String wordBeingTyped = "";
         text = text.replaceAll("(\\r|\\n)", " ");
+        text = text.replaceAll("\\$", " ");
         if (text.contains(" ")) {
             int tmp = text.lastIndexOf(" ");
             if (tmp >= currentIndexOfSpace) {
@@ -375,7 +376,7 @@ class SuggestionLabel extends JLabel {
         String typedWord = autoSuggestor.getCurrentlyTypedWord();
         String t = text.substring(0, text.lastIndexOf(typedWord));
         String tmp = t + text.substring(text.lastIndexOf(typedWord)).replace(typedWord, suggestedWord);
-        textComponent.setText(tmp+" ");
+        textComponent.setText(tmp);
         
     
     }
