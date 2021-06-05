@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package javaapplication13;
+package test1;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -288,7 +283,7 @@ class AutoSuggestor {
         //System.out.println("Typed word: " + typedWord);
 
         boolean suggestionAdded = false;
-
+try{
         for (String word : dictionary) {//get words in the dictionary which we added
             boolean fullymatches = true;
             for (int i = 0; i < typedWord.length(); i++) {//each string in the word
@@ -302,8 +297,14 @@ class AutoSuggestor {
                 suggestionAdded = true;
             }
         }
+        
+}catch(Exception e)
+                {
+                
+                }
         return suggestionAdded;
     }
+
 }
 
 class SuggestionLabel extends JLabel {
@@ -374,7 +375,7 @@ class SuggestionLabel extends JLabel {
         String typedWord = autoSuggestor.getCurrentlyTypedWord();
         String t = text.substring(0, text.lastIndexOf(typedWord));
         String tmp = t + text.substring(text.lastIndexOf(typedWord)).replace(typedWord, suggestedWord);
-        textComponent.setText(tmp);
+        textComponent.setText(tmp+" ");
         
     
     }
